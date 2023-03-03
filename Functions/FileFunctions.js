@@ -77,14 +77,32 @@ const makeRoutesFunction = (dir, name, models) => {
     models.map((model) => {
         const routesHeader = makeRoutesHeader(model.name);
         const routesFooter = `\nmodule.exports = {${model.name}Router:router}`;
-        fs.writeFileSync(`${dir}\\${name}\\src\\routes\\${model.name}Routes.js`, routesHeader + routeLogic + routesFooter, (err) => {
+        fs.writeFileSync(`${dir}\\${name}\\src\\routes\\${model.name}Route.js`, routesHeader + routeLogic + routesFooter, (err) => {
             if (err) {
                 deleteFolderFunction(name, dir);
                 throw err;
             }
         });
     })
+}
 
+const makeRoutesIndexFunction = (dir, name, models) => {
+    
+    const indexHeader = models.map((model) => {
+        return `const {${model.name}Router} = require('./${model.name}Route');\n`;
+    }).join('');
+    const indexWrapper = `const routes = (app)=>{\n`;
+    const indexLogic = models.map((model) => {
+        return `app.use('/api/${model.name.toLowerCase()}', ${model.name}Router);\n`;
+    }).join('');
+    const indexFooter = `\n}\nmodule.exports = {routes};`;
+    console.log(indexHeader + indexWrapper + indexLogic + indexFooter);
+    fs.writeFileSync(`${dir}\\${name}\\src\\routes\\index.js`, indexHeader + indexWrapper + indexLogic + indexFooter, (err) => {
+        if (err) {
+            deleteFolderFunction(name, dir);
+            throw err;
+        }
+    });
 }
 module.exports = {
     makeSrcIndexFileFunction,
@@ -93,5 +111,6 @@ module.exports = {
     makeModelsIndexFunction,
     copyDefaultFilesFunction,
     testFileHandlingFunction,
-    makeRoutesFunction
+    makeRoutesFunction,
+    makeRoutesIndexFunction
 };
