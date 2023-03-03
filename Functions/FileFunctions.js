@@ -4,7 +4,7 @@ const dbStrings = require('../Constants/dbConnJs');
 const {makeModels} = require('./Models');
 const {makeModelIndex} = require('../Constants/models');
 const {makeRoutesHeader} = require('../Constants/routes');
-
+const {makePackageJson} = require('../Constants/package');
 
 const makeSrcIndexFileFunction = async (dir, name, port) => {
     fs.writeFileSync(`${dir}\\${name}\\src\\index.js`, srcIndex(port), (err) => {
@@ -104,6 +104,18 @@ const makeRoutesIndexFunction = (dir, name, models) => {
         }
     });
 }
+
+const makePackageJsonFunction = (dir, name) => {
+    const json = makePackageJson(name);
+
+    fs.writeFileSync(`${dir}\\${name}\\package.json`, JSON.stringify(json), (err) => {
+        if (err) {
+            deleteFolderFunction(name, dir);
+            throw err;
+        }
+    });
+
+}
 module.exports = {
     makeSrcIndexFileFunction,
     makeDatabaseConnectivityFunction,
@@ -112,5 +124,6 @@ module.exports = {
     copyDefaultFilesFunction,
     testFileHandlingFunction,
     makeRoutesFunction,
-    makeRoutesIndexFunction
+    makeRoutesIndexFunction,
+    makePackageJsonFunction
 };

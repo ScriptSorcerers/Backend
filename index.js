@@ -4,7 +4,7 @@ const fs = require('fs');
 // import zip
 const archiver = require('archiver');
 const {makeSrcFolderFunction, makeFolderFunction, zipFolderFunction, deleteFolderFunction, downloadZipFunction, zipFolderwithAdmFunction} = require('./Functions/FolderFunctions');
-const {makeSrcIndexFileFunction, makeDatabaseConnectivityFunction, makeModelsFunction, makeModelsIndexFunction, copyDefaultFilesFunction, testFileHandlingFunction, makeRoutesFunction, makeRoutesIndexFunction} = require('./Functions/FileFunctions');
+const {makeSrcIndexFileFunction, makeDatabaseConnectivityFunction, makeModelsFunction, makeModelsIndexFunction, copyDefaultFilesFunction, testFileHandlingFunction, makeRoutesFunction, makeRoutesIndexFunction,makePackageJsonFunction} = require('./Functions/FileFunctions');
 
 const app = express();
 const port = 3000;
@@ -76,6 +76,8 @@ app.post('/test', async (req, res) => {
     
     await makeSrcFolderFunction(id);
     await makeSrcIndexFileFunction(__dirname, id, 5000);
+
+    await makePackageJsonFunction(__dirname, id)
 
     await makeDatabaseConnectivityFunction(__dirname, id, 'MySQL', connObj);
 
