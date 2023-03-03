@@ -77,7 +77,7 @@ const makeRoutesFunction = (dir, name, models) => {
     models.map((model) => {
         const routesHeader = makeRoutesHeader(model.name);
         const routesFooter = `\nmodule.exports = {${model.name}Router:router}`;
-        fs.writeFileSync(`${dir}\\${name}\\src\\routes\\${model.name}Route.js`, routesHeader + routeLogic + routesFooter, (err) => {
+        fs.writeFileSync(`${dir}\\${name}\\src\\routers\\${model.name}Route.js`, routesHeader + routeLogic + routesFooter, (err) => {
             if (err) {
                 deleteFolderFunction(name, dir);
                 throw err;
@@ -95,9 +95,9 @@ const makeRoutesIndexFunction = (dir, name, models) => {
     const indexLogic = models.map((model) => {
         return `app.use('/api/${model.name.toLowerCase()}', ${model.name}Router);\n`;
     }).join('');
-    const indexFooter = `\n}\nmodule.exports = {routes};`;
+    const indexFooter = `\n}\nmodule.exports = routes;`;
     console.log(indexHeader + indexWrapper + indexLogic + indexFooter);
-    fs.writeFileSync(`${dir}\\${name}\\src\\routes\\index.js`, indexHeader + indexWrapper + indexLogic + indexFooter, (err) => {
+    fs.writeFileSync(`${dir}\\${name}\\src\\routers\\index.js`, indexHeader + indexWrapper + indexLogic + indexFooter, (err) => {
         if (err) {
             deleteFolderFunction(name, dir);
             throw err;
@@ -116,6 +116,22 @@ const makePackageJsonFunction = (dir, name) => {
     });
 
 }
+
+const makeEnvFunction = (dir, name, envObj) => {
+    const env = `PORT=${envObj.port}\n
+                URI=${envObj.uri}\n
+                HOST=${envObj.host}\n
+                USER=${envObj.user}\n
+                PASSWORD=${envObj.pass}\n
+                DATABASE=${envObj.database}\n
+                PORT=${envObj.port}\n`;
+    fs.writeFileSync(`${dir}\\${name}\\.env`, env, (err) => {
+        if (err) {
+            deleteFolderFunction(name, dir);
+            throw err;
+        }
+    });
+}
 module.exports = {
     makeSrcIndexFileFunction,
     makeDatabaseConnectivityFunction,
@@ -125,5 +141,6 @@ module.exports = {
     testFileHandlingFunction,
     makeRoutesFunction,
     makeRoutesIndexFunction,
-    makePackageJsonFunction
+    makePackageJsonFunction,
+    makeEnvFunction
 };

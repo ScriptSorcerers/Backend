@@ -56,11 +56,11 @@ const makeModelIndex = (models) => {
         const db = require('../db/conn');
         ${ models.map((model) => {
             return `
-            const ${model.name} = sequelize.define('${model.name}', ${model.name}Model);`
+            const ${model.name} = db.define('${model.name}', ${model.name}Model);`
         }).join('\n')}
 
         const syncDatabase = async () => {
-            await sequelize.sync({force: true,
+            await db.sync({force: true,
                 logging: false,
                 freezeTableName: true
             });

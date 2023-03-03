@@ -94,7 +94,7 @@ const makeSrcFolderFunction = async (name) => {
     console.log('middleware folder created');
     await makeFolderFunction(`${name}/src/models`, name);
     console.log('models folder created');
-    await makeFolderFunction(`${name}/src/routes`, name);
+    await makeFolderFunction(`${name}/src/routers`, name);
     console.log('routes folder created');
     await makeFolderFunction(`${name}/src/utilities`, name);
     console.log('utilities folder created');

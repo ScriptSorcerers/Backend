@@ -5,10 +5,10 @@ const dbStrings = {
         return     `
         var {Sequelize} = require('sequelize');
         require('dotenv').config();
-        const DATABASE = process.env.DATABASENAME||${name}||name;
-        const USER = process.env.USER||${user}||user;
-        const PASSWORD = process.env.PASSWORD||${pass}||pass;
-        const HOST = process.env.HOST||${host}||host;
+        const DATABASE = process.env.DATABASENAME||\'${name}\';
+    const USER = process.env.USER||\'${user}\';
+    const PASSWORD = process.env.PASSWORD||\'${pass}\';
+    const HOST = process.env.HOST||\'${host}\';
         
         // connect to database
         const db = new Sequelize(DATABASE, USER, PASSWORD, {
@@ -17,7 +17,7 @@ const dbStrings = {
             logging: false,
             });
         
-            sequelize.authenticate().then(()=>{
+            db.authenticate().then(()=>{
                 console.log("Connected!");
             })
             .catch((error)=>{
@@ -32,10 +32,10 @@ const dbStrings = {
         return`
     var {Sequelize} = require('sequelize');
     require('dotenv').config();
-    const DATABASE = process.env.DATABASENAME||${name}||name;
-    const USER = process.env.USER||${user}||user;
-    const PASSWORD = process.env.PASSWORD||${pass}||pass;
-    const HOST = process.env.HOST||${host}||host;
+    const DATABASE = process.env.DATABASENAME||\'${name}\';
+    const USER = process.env.USER||\'${user}\';
+    const PASSWORD = process.env.PASSWORD||\'${pass}\';
+    const HOST = process.env.HOST||\'${host}\';
     
     // connect to database
     const db = new Sequelize(DATABASE, USER, PASSWORD, {
@@ -44,7 +44,7 @@ const dbStrings = {
         logging: false,
         });
     
-        sequelize.authenticate().then(()=>{
+        db.authenticate().then(()=>{
             console.log("Connected!");
         }
         .catch((error)=>{

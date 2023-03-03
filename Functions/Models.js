@@ -6,10 +6,10 @@ const makeModels = (name, fieldsObject) => {
         ${
             Object.keys(fieldsObject).map((field) => {
                 return `${field}: {
-                    type: DataTypes.${fieldsObject[field].type},
-                    allowNull: ${fieldsObject[field].allowNull},
-                    primaryKey: ${fieldsObject[field].primaryKey},
-                    defaultValue: ${fieldsObject[field].defaultValue}
+                    type: DataTypes.${fieldsObject[field].type||DataTypes.STRING},
+                    allowNull: ${fieldsObject[field].allowNull||true},
+                    primaryKey: ${fieldsObject[field].primaryKey||false},
+                    defaultValue: \'${fieldsObject[field].defaultValue || ''}\',
                 },`
             }).join('\n')
         }
