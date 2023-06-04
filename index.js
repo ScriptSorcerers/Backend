@@ -6,9 +6,9 @@ const mongoose = require('mongoose');
 const setupRoutes = require('./Routes');
 
 // databse connection
-mongoose.connect(process.env.MONGODB_URI)
-    .then( ()=> console.log("DB Connected") )
-    .catch(err => console.log("unable to connect to Database\n",err) );
+// mongoose.connect(process.env.MONGODB_URI)
+//     .then( ()=> console.log("DB Connected") )
+//     .catch(err => console.log("unable to connect to Database\n",err) );
 
 // import zip
 const archiver = require('archiver');
@@ -16,12 +16,12 @@ const {makeSrcFolderFunction, makeFolderFunction, zipFolderFunction, deleteFolde
 const {makeSrcIndexFileFunction, makeDatabaseConnectivityFunction, makeModelsFunction, makeModelsIndexFunction, copyDefaultFilesFunction, testFileHandlingFunction, makeRoutesFunction, makeRoutesIndexFunction,makePackageJsonFunction} = require('./Functions/FileFunctions');
 
 const app = express();
-const port = 3000;
+const port = 3001;
 //json formatter
 app.use(express.json());
 app.use(cors());
 
-setupRoutes(app);
+// setupRoutes(app);
 // app.get('/', async (req, res) => {
 
 //     // create a unique id
@@ -81,7 +81,8 @@ setupRoutes(app);
 // });
 
 app.post('/test', async (req, res) => {
-    var id = Math.random().toString(36).substr(2, 9);
+    console.log("sup")
+    var id = "Backend"+Math.random().toString(36).substr(2, 9);
     const {connObj, models} = req.body;
     // console.log(req.body);
     await makeFolderFunction(id, __dirname);
@@ -107,5 +108,9 @@ app.post('/test', async (req, res) => {
 
     await deleteFolderFunction(id, __dirname);
 
+});
+
+app.get('/test', async (req, res) => {
+    res.send("hello");
 });
     app.listen(port, () => console.log(`Example app listening on port ${port}!`));
