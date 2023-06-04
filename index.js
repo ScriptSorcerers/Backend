@@ -1,6 +1,15 @@
 // start a server and make an api
 const express = require('express');
 const fs = require('fs');
+const cors = require('cors');
+const mongoose = require('mongoose');
+const setupRoutes = require('./Routes');
+
+// databse connection
+mongoose.connect(process.env.MONGODB_URI)
+    .then( ()=> console.log("DB Connected") )
+    .catch(err => console.log("unable to connect to Database\n",err) );
+
 // import zip
 const archiver = require('archiver');
 const {makeSrcFolderFunction, makeFolderFunction, zipFolderFunction, deleteFolderFunction, downloadZipFunction, zipFolderwithAdmFunction} = require('./Functions/FolderFunctions');
@@ -10,6 +19,9 @@ const app = express();
 const port = 3000;
 //json formatter
 app.use(express.json());
+app.use(cors());
+
+setupRoutes(app);
 // app.get('/', async (req, res) => {
 
 //     // create a unique id
