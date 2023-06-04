@@ -4,7 +4,7 @@ const fs = require('fs');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const setupRoutes = require('./Routes');
-
+const dotenv = require('dotenv');
 // databse connection
 // mongoose.connect(process.env.MONGODB_URI)
 //     .then( ()=> console.log("DB Connected") )
@@ -16,7 +16,7 @@ const {makeSrcFolderFunction, makeFolderFunction, zipFolderFunction, deleteFolde
 const {makeSrcIndexFileFunction, makeDatabaseConnectivityFunction, makeModelsFunction, makeModelsIndexFunction, copyDefaultFilesFunction, testFileHandlingFunction, makeRoutesFunction, makeRoutesIndexFunction,makePackageJsonFunction} = require('./Functions/FileFunctions');
 
 const app = express();
-const port = 3001;
+const port = process.env.PORT || 5000;
 //json formatter
 app.use(express.json());
 app.use(cors());
