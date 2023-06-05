@@ -7,7 +7,7 @@ const {makeRoutesHeader} = require('../Constants/routes');
 const {makePackageJson} = require('../Constants/package');
 
 const makeSrcIndexFileFunction = async (dir, name, port) => {
-    fs.writeFileSync(`${dir}\\${name}\\src\\index.js`, srcIndex(port), (err) => {
+    fs.writeFileSync(`${dir}//${name}//src//index.js`, srcIndex(port), (err) => {
         if (err) {
             deleteFolderFunction(name, dir);
             throw err;
