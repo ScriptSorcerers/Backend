@@ -108,7 +108,7 @@ const makeRoutesIndexFunction = (dir, name, models) => {
 const makePackageJsonFunction = (dir, name) => {
     const json = makePackageJson(name);
 
-    fs.writeFileSync(`${dir}\\${name}\\package.json`, JSON.stringify(json), (err) => {
+    fs.writeFileSync(`${dir}//${name}//package.json`, JSON.stringify(json), (err) => {
         if (err) {
             deleteFolderFunction(name, dir);
             throw err;
