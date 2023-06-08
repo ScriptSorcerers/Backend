@@ -34,3 +34,4 @@ const BackendSchema = new mongoose.Schema({
 );
 
 const Backend = mongoose.model('Backend', BackendSchema);
+module.exports = Backend;   

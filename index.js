@@ -5,9 +5,9 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const setupRoutes = require('./Routes');
 require('dotenv');
-const MONGO_URI = process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/backend';
+const MONGO_URI = process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/backendproject';
 // databse connection
-mongoose.connect(MONGO_URI)
+mongoose.connect(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
     .then( ()=> console.log("DB Connected") )
     .catch(err => console.log("unable to connect to Database\n",err) );
 
