@@ -1,8 +1,9 @@
 const attributesMap = {
     'dataType' : "type",
-    'primaryKey' : "primaryKey",
+    'unique' : "unique",
     'allowNull' : "allowNull",
-    'defaultValue' : "defaultValue"
+    'defaultValue' : "defaultValue",
+    'primaryKey' : "primaryKey",
 }
 
 const DataTypesMap = {

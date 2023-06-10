@@ -79,7 +79,8 @@ const downloadZipFunction = async (name, res, dir) => {
             if (err) {
                 reject(err);
             }
-            resolve();
+            // resolve();
+            return true;
         });
     });
 }

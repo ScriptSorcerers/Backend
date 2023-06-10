@@ -8,6 +8,7 @@ const makeModels = (name, fieldsObject) => {
                 return `${field}: {
                     type: DataTypes.${fieldsObject[field].type||DataTypes.STRING},
                     allowNull: ${fieldsObject[field].allowNull||true},
+                    unique: ${fieldsObject[field].unique||false},
                     primaryKey: ${fieldsObject[field].primaryKey||false},
                     defaultValue: \'${fieldsObject[field].defaultValue || ''}\',
                 },`

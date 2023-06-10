@@ -96,7 +96,7 @@ const makeRoutesIndexFunction = (dir, name, models) => {
         return `app.use('/api/${model.name.toLowerCase()}', ${model.name}Router);\n`;
     }).join('');
     const indexFooter = `\n}\nmodule.exports = routes;`;
-    console.log(indexHeader + indexWrapper + indexLogic + indexFooter);
+    // console.log(indexHeader + indexWrapper + indexLogic + indexFooter);
     fs.writeFileSync(`${dir}\\${name}\\src\\routers\\index.js`, indexHeader + indexWrapper + indexLogic + indexFooter, (err) => {
         if (err) {
             deleteFolderFunction(name, dir);

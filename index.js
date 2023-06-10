@@ -4,7 +4,7 @@ const fs = require('fs');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const setupRoutes = require('./Routes');
-require('dotenv');
+require('dotenv').config();
 const MONGO_URI = process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/backendproject';
 // databse connection
 mongoose.connect(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })

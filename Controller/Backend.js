@@ -2,14 +2,16 @@ const {Backend, User} = require('../Models');
 const CreateBackend = require('../GlobalFunction');
 const mongoose = require('mongoose');
 const addNewBackend = async (req, res) => {
-    const {userId, connObj, models} = req.body;
-    const backendObject = {connObj, models};
-    console.log(userId, backendObject);
+    let {userId, connObj, models} = req.body;
+    // console.log("body", req.body)
+    // console.log("add New Backend", req.body);
     if(!userId || !connObj || !models){
+        console.log("userId, connObj, models are required");
         return res.status(400).json({message: "userId and backendObject are required"});
     }
     if(userId){
         if(!mongoose.Types.ObjectId.isValid(userId)){
+            console.log("userId is not valid")
             return res.status(400).json({message: "userId is not valid"});
         }
         const user = await User.findOne({_id: userId});
@@ -17,10 +19,14 @@ const addNewBackend = async (req, res) => {
             return res.status(400).json({message: "user not found"});
         }
     }
-    if(backendObject){
-        if(typeof backendObject !== 'object'){
-            return res.status(400).json({message: "backendObject is not valid"});
-        }
+    // if(backendObject){
+    //     if(typeof backendObject !== 'object'){
+    //         return res.status(400).json({message: "backendObject is not valid"});
+    //     }
+    // }
+    const backendObject = { 
+        connObj,
+        models
     }
     const newBackend = new Backend({
         userId,
@@ -30,13 +36,13 @@ const addNewBackend = async (req, res) => {
         const resp = await CreateBackend(req, res)
         if(resp){
             const savedBackend = await newBackend.save();
-            res.status(200).json(savedBackend);
+            return res.status(200).json(savedBackend);
         }
         else{
-            res.status(500).json({message: "error in creating backend"});
+            return res.status(500).json({message: "error in creating backend"});
         }
     } catch (error) {
-        res.status(500).json(error);
+        return res.status(500).json({error});
     }
 }
 
@@ -63,6 +69,7 @@ const getAllUserBackends = async (req, res) => {
 }
 
 const getLastUserBackend = async (req, res) => {
+    console.log("last User Backend", req.body);
     const {userId} = req.body;
     if(!userId){
         return res.status(400).json({message: "userId is required"});
@@ -78,9 +85,9 @@ const getLastUserBackend = async (req, res) => {
     }
     try {
         const backend = await Backend.findOne({userId}).sort({timestamp: -1});
-        res.status(200).json(backend);
+        return res.status(200).json(backend);
     } catch (error) {
-        res.status(500).json(error);
+        return res.status(500).json(error);
     }
 }
 

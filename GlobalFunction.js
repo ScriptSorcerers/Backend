@@ -27,7 +27,8 @@ const CreateBackend = async (req, res) => {
         // await zipFolderFunction(id, __dirname);
         await zipFolderwithAdmFunction(id, __dirname);
         await downloadZipFunction(id, res, __dirname)
-
+        // right now delete ni hora coz download zip wala resolve ni hora
+        // baad m dekhenge
         await deleteFolderFunction(id, __dirname);
 
         return true;
