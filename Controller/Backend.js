@@ -1,11 +1,11 @@
 const {Backend, User} = require('../Models');
 const CreateBackend = require('../GlobalFunction');
-const mongoose = require('mongoose');
+
 const addNewBackend = async (req, res) => {
-    const {userId, connObj, models} = req.body;
-    const backendObject = {connObj, models};
-    console.log(userId, backendObject);
-    if(!userId || !connObj || !models){
+    await CreateBackend(req, res);
+    return;
+    const {userId, backendObject} = req.body;
+    if(!userId || !backendObject){
         return res.status(400).json({message: "userId and backendObject are required"});
     }
     if(userId){
@@ -22,19 +22,14 @@ const addNewBackend = async (req, res) => {
             return res.status(400).json({message: "backendObject is not valid"});
         }
     }
+
     const newBackend = new Backend({
         userId,
         backendObject
     });
     try {
-        const resp = await CreateBackend(req, res)
-        if(resp){
-            const savedBackend = await newBackend.save();
-            res.status(200).json(savedBackend);
-        }
-        else{
-            res.status(500).json({message: "error in creating backend"});
-        }
+        const savedBackend = await newBackend.save();
+        res.status(200).json(savedBackend);
     } catch (error) {
         res.status(500).json(error);
     }
