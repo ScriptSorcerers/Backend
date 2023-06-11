@@ -33,14 +33,9 @@ const addNewBackend = async (req, res) => {
         backendObject
     });
     try {
-        const resp = await CreateBackend(req, res)
-        if(resp){
             const savedBackend = await newBackend.save();
+            await CreateBackend(req, res)
             return res.status(200).json(savedBackend);
-        }
-        else{
-            return res.status(500).json({message: "error in creating backend"});
-        }
     } catch (error) {
         return res.status(500).json({error});
     }
