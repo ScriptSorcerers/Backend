@@ -6,14 +6,9 @@ const mongoose = require('mongoose');
 const setupRoutes = require('./Routes');
 require('dotenv').config();
 const MONGO_URI = process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/backendproject';
-// databse connection
 mongoose.connect(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
     .then( ()=> console.log("DB Connected") )
     .catch(err => console.log("unable to connect to Database\n",err) );
-
-// import zip
-// const archiver = require('archiver');
-
 
 const app = express();
 const port = process.env.PORT || 5000;
