@@ -1,3 +1,4 @@
+const {DataTypesMap} = require('../Constants/models');
 const makeModels = (name, fieldsObject) => {
     const model = `
     const { DataTypes } = require('sequelize');
@@ -6,7 +7,7 @@ const makeModels = (name, fieldsObject) => {
         ${
             Object.keys(fieldsObject).map((field) => {
                 return `${field}: {
-                    type: DataTypes.${fieldsObject[field].type||DataTypes.STRING},
+                    type: ${DataTypesMap[fieldsObject[field].type]||'DataTypes.STRING'},
                     allowNull: ${fieldsObject[field].allowNull||true},
                     unique: ${fieldsObject[field].unique||false},
                     primaryKey: ${fieldsObject[field].primaryKey||false},

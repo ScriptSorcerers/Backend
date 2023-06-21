@@ -81,5 +81,6 @@ const makeEnum = (enumArray) => {
 }
 
 module.exports = {
-    makeModelIndex
+    makeModelIndex,
+    DataTypesMap
 }
