@@ -7,7 +7,7 @@ const addNewBackend = async (req, res) => {
     // console.log("add New Backend", req.body);
     if(!userId || !connObj || !models){
         console.log("userId, connObj, models are required");
-        return res.status(400).json({message: "userId and backendObject are required"});
+        return res.status(400).json({message: "userId, connObj, models are required"});
     }
     if(userId){
         if(!mongoose.Types.ObjectId.isValid(userId)){
