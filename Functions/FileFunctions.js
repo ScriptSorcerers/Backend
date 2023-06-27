@@ -118,13 +118,12 @@ const makePackageJsonFunction = (dir, name) => {
 }
 
 const makeEnvFunction = (dir, name, envObj) => {
-    const env = `PORT=${envObj.port}\n
-                URI=${envObj.uri}\n
-                HOST=${envObj.host}\n
-                USER=${envObj.user}\n
-                PASSWORD=${envObj.pass}\n
-                DATABASE=${envObj.database}\n
-                PORT=${envObj.port}\n`;
+    const env = `DBPORT=${envObj?.dbport}\n
+                HOST=${envObj?.dbhost}\n
+                USER=${envObj?.dbusername}\n
+                PASSWORD=${envObj?.dbpassword}\n
+                DATABASE=${envObj?.dbname}\n
+                PORT=${envObj?.dbport}\n`;
     fs.writeFileSync(`${dir}\\${name}\\.env`, env, (err) => {
         if (err) {
             deleteFolderFunction(name, dir);

@@ -69,8 +69,9 @@ const makeModelIndex = (models) => {
 
         ${
             models.map((model,i) => {
-                if(models[i+1]) return `// ${model.name}.hasMany(${models[i+1].name});\t// ${models[i+1].name}.belongsTo(${model.name});\n\n`                
-            })
+                if(models[i+1]) 
+                return `// ${model.name}.hasMany(${models[i+1].name});\t// ${models[i+1].name}.belongsTo(${model.name});\n\n`                
+            }).join('\n')
         }
 
         module.exports = {

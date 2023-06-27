@@ -1,14 +1,14 @@
 const dbStrings = {
     "MongoDB": `mongodb://localhost:27017/dbname`,
     "MySQL": MySQLConnect = (connObj) => {
-        const {name, user, pass, host} = connObj;
+        const {dbname, dbusername, dbpassword, dbhost} = connObj;
         return     `
         var {Sequelize} = require('sequelize');
         require('dotenv').config();
-        const DATABASE = process.env.DATABASENAME||\'${name}\';
-    const USER = process.env.USER||\'${user}\';
-    const PASSWORD = process.env.PASSWORD||\'${pass}\';
-    const HOST = process.env.HOST||\'${host}\';
+        const DATABASE = process.env.DATABASE||\'${dbname}\';
+    const USER = process.env.USER||\'${dbusername}\';
+    const PASSWORD = process.env.PASSWORD||\'${dbpassword}\';
+    const HOST = process.env.HOST||\'${dbhost}\';
         
         // connect to database
         const db = new Sequelize(DATABASE, USER, PASSWORD, {

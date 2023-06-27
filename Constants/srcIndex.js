@@ -2,7 +2,7 @@ const srcIndex = (port) => {
     return `
     const { Router } = require("express")
     const express = require("express")
-    
+    require("dotenv").config()
     const cors = require("cors")
     //Add port in an env file
     const port = process.env.PORT || 5000

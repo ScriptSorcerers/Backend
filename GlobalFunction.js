@@ -1,6 +1,6 @@
 
 const { makeSrcFolderFunction, makeFolderFunction, zipFolderFunction, deleteFolderFunction, downloadZipFunction, zipFolderwithAdmFunction } = require('./Functions/FolderFunctions');
-const { makeSrcIndexFileFunction, makeDatabaseConnectivityFunction, makeModelsFunction, makeModelsIndexFunction, copyDefaultFilesFunction, testFileHandlingFunction, makeRoutesFunction, makeRoutesIndexFunction, makePackageJsonFunction } = require('./Functions/FileFunctions');
+const { makeSrcIndexFileFunction, makeDatabaseConnectivityFunction, makeModelsFunction, makeModelsIndexFunction, copyDefaultFilesFunction, testFileHandlingFunction, makeRoutesFunction, makeRoutesIndexFunction, makePackageJsonFunction,makeEnvFunction } = require('./Functions/FileFunctions');
 
 const CreateBackend = async (req, res) => {
     var id = "Backend" + Math.random().toString(36).substr(2, 9);
@@ -13,7 +13,7 @@ const CreateBackend = async (req, res) => {
         await makeSrcIndexFileFunction(__dirname, id, 5000);
 
         await makePackageJsonFunction(__dirname, id)
-
+        await makeEnvFunction(__dirname, id, connObj)
         await makeDatabaseConnectivityFunction(__dirname, id, 'MySQL', connObj);
 
         await makeModelsFunction(__dirname, id, models);
