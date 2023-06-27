@@ -66,7 +66,7 @@ const makeModelIndex = (models) => {
                 freezeTableName: true
             });
         }
-
+        syncDatabase();
         ${
             models.map((model,i) => {
                 if(models[i+1]) 

@@ -11,6 +11,12 @@ const typeMaker = (field) => {
 }
 
 const defaultMaker = (field) => {
+    if(field.type === "BOOLEAN"){
+        return `${field.defaultValue}`;
+    }
+    if(field.type === "INTEGER"||field.type === "BIGINT"||field.type === "FLOAT"||field.type === "DOUBLE"||field.type === "DECIMAL"){
+        return `${field.defaultValue}`;
+    }
     if(field.type === "ENUM"||field.type === "ARRAY"){
         const firstEnum = field.defaultValue.split(',')[0];
         return `'${firstEnum}'`;
@@ -25,12 +31,13 @@ const makeModels = (name, fieldsObject) => {
     const ${name}Model = {
         ${
             Object.keys(fieldsObject).map((field) => {
+                console.log(fieldsObject[field])
                 return `${field}: {
                     type: ${typeMaker(fieldsObject[field])},
-                    allowNull: ${fieldsObject[field].allowNull||true},
-                    unique: ${fieldsObject[field].unique||false},
+                    allowNull: ${!fieldsObject[field].allowNull},
+                    unique: ${fieldsObject[field].unique},
                     primaryKey: ${fieldsObject[field].primaryKey||false},
-                    defaultValue: ${defaultMaker(fieldsObject[field])},
+                    ${fieldsObject[field].defaultValue&&`defaultValue: ${defaultMaker(fieldsObject[field])}`||''}
                 },`
             }).join('\n')
         }
